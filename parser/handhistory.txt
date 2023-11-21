@@ -1,0 +1,250 @@
+PokerStars Hand #247175107527:  Hold'em No Limit (€0.01/€0.02 EUR) - 2023/11/18 10:33:31 WET [2023/11/18 5:33:31 ET]
+Table 'Sylvania' 6-max Seat #4 is the button
+Seat 2: Nunyeez (€1.53 in chips) 
+Seat 3: Byrobama192 (€6.02 in chips) 
+Seat 4: ClaudioDBM (€6.21 in chips) 
+Seat 5: levezinho32 (€0.94 in chips) 
+Seat 6: AceOw1 (€1 in chips) 
+levezinho32: posts small blind €0.01
+AceOw1: posts big blind €0.02
+*** HOLE CARDS ***
+Dealt to AceOw1 [9s 9d]
+Nunyeez: raises €0.02 to €0.04
+Byrobama192: folds 
+ClaudioDBM: folds 
+levezinho32: calls €0.03
+AceOw1: calls €0.02
+*** FLOP *** [Qh 8s 2d]
+simaorr joins the table at seat #1 
+levezinho32: checks 
+AceOw1: checks 
+Nunyeez: bets €0.04
+levezinho32: folds 
+AceOw1: folds 
+Uncalled bet (€0.04) returned to Nunyeez
+Nunyeez collected €0.11 from pot
+*** SUMMARY ***
+Total pot €0.12 | Rake €0.01 
+Board [Qh 8s 2d]
+Seat 2: Nunyeez collected (€0.11)
+Seat 3: Byrobama192 folded before Flop (didn't bet)
+Seat 4: ClaudioDBM (button) folded before Flop (didn't bet)
+Seat 5: levezinho32 (small blind) folded on the Flop
+Seat 6: AceOw1 (big blind) folded on the Flop
+
+
+
+PokerStars Hand #247175112866:  Hold'em No Limit (€0.01/€0.02 EUR) - 2023/11/18 10:34:08 WET [2023/11/18 5:34:08 ET]
+Table 'Sylvania' 6-max Seat #5 is the button
+Seat 1: simaorr (€2 in chips) 
+Seat 2: Nunyeez (€1.60 in chips) 
+Seat 3: Byrobama192 (€6.02 in chips) 
+Seat 4: ClaudioDBM (€6.21 in chips) 
+Seat 5: levezinho32 (€0.90 in chips) 
+Seat 6: AceOw1 (€0.96 in chips) 
+AceOw1: posts small blind €0.01
+simaorr: posts big blind €0.02
+*** HOLE CARDS ***
+Dealt to AceOw1 [Kd 9s]
+Nunyeez: raises €0.04 to €0.06
+Byrobama192: folds 
+ClaudioDBM: folds 
+levezinho32: folds 
+AceOw1: folds 
+simaorr: folds 
+Uncalled bet (€0.04) returned to Nunyeez
+Nunyeez collected €0.05 from pot
+Nunyeez: doesn't show hand 
+*** SUMMARY ***
+Total pot €0.05 | Rake €0 
+Seat 1: simaorr (big blind) folded before Flop
+Seat 2: Nunyeez collected (€0.05)
+Seat 3: Byrobama192 folded before Flop (didn't bet)
+Seat 4: ClaudioDBM folded before Flop (didn't bet)
+Seat 5: levezinho32 (button) folded before Flop (didn't bet)
+Seat 6: AceOw1 (small blind) folded before Flop
+
+
+
+PokerStars Hand #247175117458:  Hold'em No Limit (€0.01/€0.02 EUR) - 2023/11/18 10:34:40 WET [2023/11/18 5:34:40 ET]
+Table 'Sylvania' 6-max Seat #6 is the button
+Seat 1: simaorr (€1.98 in chips) 
+Seat 2: Nunyeez (€1.63 in chips) 
+Seat 3: Byrobama192 (€6.02 in chips) 
+Seat 4: ClaudioDBM (€6.21 in chips) 
+Seat 5: levezinho32 (€0.90 in chips) 
+Seat 6: AceOw1 (€0.95 in chips) 
+simaorr: posts small blind €0.01
+Nunyeez: posts big blind €0.02
+*** HOLE CARDS ***
+Dealt to AceOw1 [3s 6c]
+Byrobama192: calls €0.02
+ClaudioDBM: folds 
+levezinho32: folds 
+AceOw1: folds 
+simaorr: folds 
+Nunyeez: checks 
+*** FLOP *** [7c 5s Jc]
+Nunyeez: checks 
+Byrobama192: checks 
+*** TURN *** [7c 5s Jc] [8h]
+Nunyeez: bets €0.04
+Byrobama192: calls €0.04
+*** RIVER *** [7c 5s Jc 8h] [Tc]
+Nunyeez: checks 
+Byrobama192: checks 
+*** SHOW DOWN ***
+Nunyeez: shows [7s 2h] (a pair of Sevens)
+Byrobama192: shows [9h Qh] (a straight, Eight to Queen)
+Byrobama192 collected €0.12 from pot
+*** SUMMARY ***
+Total pot €0.13 | Rake €0.01 
+Board [7c 5s Jc 8h Tc]
+Seat 1: simaorr (small blind) folded before Flop
+Seat 2: Nunyeez (big blind) showed [7s 2h] and lost with a pair of Sevens
+Seat 3: Byrobama192 showed [9h Qh] and won (€0.12) with a straight, Eight to Queen
+Seat 4: ClaudioDBM folded before Flop (didn't bet)
+Seat 5: levezinho32 folded before Flop (didn't bet)
+Seat 6: AceOw1 (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #247175124363:  Hold'em No Limit (€0.01/€0.02 EUR) - 2023/11/18 10:35:29 WET [2023/11/18 5:35:29 ET]
+Table 'Sylvania' 6-max Seat #1 is the button
+Seat 1: simaorr (€1.97 in chips) 
+Seat 2: Nunyeez (€1.57 in chips) 
+Seat 3: Byrobama192 (€6.08 in chips) 
+Seat 4: ClaudioDBM (€6.21 in chips) 
+Seat 5: levezinho32 (€0.90 in chips) 
+Seat 6: AceOw1 (€0.95 in chips) 
+Nunyeez: posts small blind €0.01
+Byrobama192: posts big blind €0.02
+*** HOLE CARDS ***
+Dealt to AceOw1 [2c 3s]
+ClaudioDBM: folds 
+levezinho32: folds 
+AceOw1: folds 
+simaorr: folds 
+Nunyeez: folds 
+Uncalled bet (€0.01) returned to Byrobama192
+Byrobama192 collected €0.02 from pot
+*** SUMMARY ***
+Total pot €0.02 | Rake €0 
+Seat 1: simaorr (button) folded before Flop (didn't bet)
+Seat 2: Nunyeez (small blind) folded before Flop
+Seat 3: Byrobama192 (big blind) collected (€0.02)
+Seat 4: ClaudioDBM folded before Flop (didn't bet)
+Seat 5: levezinho32 folded before Flop (didn't bet)
+Seat 6: AceOw1 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #247175126879:  Hold'em No Limit (€0.01/€0.02 EUR) - 2023/11/18 10:35:46 WET [2023/11/18 5:35:46 ET]
+Table 'Sylvania' 6-max Seat #2 is the button
+Seat 1: simaorr (€1.97 in chips) 
+Seat 2: Nunyeez (€1.56 in chips) 
+Seat 3: Byrobama192 (€6.09 in chips) 
+Seat 4: ClaudioDBM (€6.21 in chips) 
+Seat 5: levezinho32 (€0.90 in chips) 
+Seat 6: AceOw1 (€0.95 in chips) 
+Byrobama192: posts small blind €0.01
+ClaudioDBM: posts big blind €0.02
+*** HOLE CARDS ***
+Dealt to AceOw1 [3d 4h]
+levezinho32: folds 
+AceOw1: folds 
+simaorr: folds 
+Nunyeez: folds 
+Byrobama192: folds 
+Uncalled bet (€0.01) returned to ClaudioDBM
+ClaudioDBM collected €0.02 from pot
+*** SUMMARY ***
+Total pot €0.02 | Rake €0 
+Seat 1: simaorr folded before Flop (didn't bet)
+Seat 2: Nunyeez (button) folded before Flop (didn't bet)
+Seat 3: Byrobama192 (small blind) folded before Flop
+Seat 4: ClaudioDBM (big blind) collected (€0.02)
+Seat 5: levezinho32 folded before Flop (didn't bet)
+Seat 6: AceOw1 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #247175129082:  Hold'em No Limit (€0.01/€0.02 EUR) - 2023/11/18 10:36:01 WET [2023/11/18 5:36:01 ET]
+Table 'Sylvania' 6-max Seat #3 is the button
+Seat 1: simaorr (€1.97 in chips) 
+Seat 2: Nunyeez (€1.56 in chips) 
+Seat 3: Byrobama192 (€6.08 in chips) 
+Seat 4: ClaudioDBM (€6.22 in chips) 
+Seat 5: levezinho32 (€0.90 in chips) 
+Seat 6: AceOw1 (€0.95 in chips) 
+ClaudioDBM: posts small blind €0.01
+levezinho32: posts big blind €0.02
+*** HOLE CARDS ***
+Dealt to AceOw1 [9h 8c]
+AceOw1: folds 
+simaorr: folds 
+Nunyeez: folds 
+Byrobama192: calls €0.02
+ClaudioDBM: calls €0.01
+levezinho32: checks 
+*** FLOP *** [4d Ac 3c]
+ClaudioDBM: checks 
+levezinho32: checks 
+Byrobama192: checks 
+*** TURN *** [4d Ac 3c] [4s]
+ClaudioDBM: checks 
+levezinho32: checks 
+Byrobama192: bets €0.03
+ClaudioDBM: folds 
+levezinho32: folds 
+Uncalled bet (€0.03) returned to Byrobama192
+Byrobama192 collected €0.06 from pot
+*** SUMMARY ***
+Total pot €0.06 | Rake €0 
+Board [4d Ac 3c 4s]
+Seat 1: simaorr folded before Flop (didn't bet)
+Seat 2: Nunyeez folded before Flop (didn't bet)
+Seat 3: Byrobama192 (button) collected (€0.06)
+Seat 4: ClaudioDBM (small blind) folded on the Turn
+Seat 5: levezinho32 (big blind) folded on the Turn
+Seat 6: AceOw1 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #247175136335:  Hold'em No Limit (€0.01/€0.02 EUR) - 2023/11/18 10:36:51 WET [2023/11/18 5:36:51 ET]
+Table 'Sylvania' 6-max Seat #4 is the button
+Seat 1: simaorr (€1.97 in chips) 
+Seat 2: Nunyeez (€1.56 in chips) 
+Seat 3: Byrobama192 (€6.12 in chips) 
+Seat 4: ClaudioDBM (€6.20 in chips) 
+Seat 5: levezinho32 (€0.88 in chips) 
+Seat 6: AceOw1 (€0.95 in chips) 
+levezinho32: posts small blind €0.01
+AceOw1: posts big blind €0.02
+*** HOLE CARDS ***
+Dealt to AceOw1 [7s 7d]
+simaorr has timed out
+simaorr: folds 
+Nunyeez: raises €0.08 to €0.10
+Byrobama192: folds 
+ClaudioDBM: folds 
+levezinho32: folds 
+AceOw1: calls €0.08
+*** FLOP *** [6s 3c 8d]
+AceOw1: bets €0.10
+Nunyeez: calls €0.10
+*** TURN *** [6s 3c 8d] [3d]
+AceOw1: bets €0.20
+Nunyeez: folds 
+Uncalled bet (€0.20) returned to AceOw1
+AceOw1 collected €0.39 from pot
+AceOw1: doesn't show hand 
+*** SUMMARY ***
+Total pot €0.41 | Rake €0.02 
+Board [6s 3c 8d 3d]
+Seat 1: simaorr folded before Flop (didn't bet)
+Seat 2: Nunyeez folded on the Turn
+Seat 3: Byrobama192 folded before Flop (didn't bet)
+Seat 4: ClaudioDBM (button) folded before Flop (didn't bet)
+Seat 5: levezinho32 (small blind) folded before Flop
+Seat 6: AceOw1 (big blind) collected (€0.39)
