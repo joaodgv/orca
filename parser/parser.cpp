@@ -20,6 +20,14 @@ std::vector<Player> updatePlayers(std::vector<Player> players, std::vector<std::
                 player.n_pfr = 0;
                 player.n_3bet = 0;
                 player.n_3bet_opportunity = 0;
+                player.raised = false;
+                player.n_bets = 0;
+                player.n_raises = 0;
+                player.n_calls = 0;
+                player.n_cbets = 0;
+                player.n_cbets_opportunity = 0;
+                player.n_wins = 0;
+                player.n_showdowns = 0;
                 players.push_back(player);
             } else {
                 break;
@@ -55,6 +63,14 @@ std::vector<Player> updatePlayers(std::vector<Player> players, std::vector<std::
             new_player.n_pfr = 0;
             new_player.n_3bet = 0;
             new_player.n_3bet_opportunity = 0;
+            new_player.raised = false;
+            new_player.n_bets = 0;
+            new_player.n_raises = 0;
+            new_player.n_calls = 0;
+            new_player.n_cbets = 0;
+            new_player.n_cbets_opportunity = 0;
+            new_player.n_wins = 0;
+            new_player.n_showdowns = 0;
             players.push_back(new_player);
             hand.erase(hand.begin() + i);
         } else if (hand[i].find("leaves") != std::string::npos) {
@@ -107,6 +123,7 @@ std::vector<Player> parseHand(std::vector<Player> players , std::vector<std::str
                         if (players[i].name == playerName) {
                             players[i].n_pfr++;
                             players[i].n_vpip++;
+                            players[i].raised = true;
                         }
                     }
                 } else if (line.find("raises") != std::string::npos && wasRaised) {
@@ -115,11 +132,11 @@ std::vector<Player> parseHand(std::vector<Player> players , std::vector<std::str
                         if (players[i].name == playerName) {
                             players[i].n_3bet++;
                             players[i].n_3bet_opportunity++;
+                            players[i].raised = true;
                         }
                     }
                 } else if (line.find("calls") != std::string::npos) {
                     std::string playerName = line.substr(0, line.find(":"));
-                    printf("Player %s calls\n", playerName.c_str());
                     for (int i = 0; i < players.size(); i++) {
                         if (players[i].name == playerName) {
                             players[i].n_vpip++;
@@ -135,29 +152,88 @@ std::vector<Player> parseHand(std::vector<Player> players , std::vector<std::str
         }
 
         // postflop actions
-        // if (line.find("FLOP") != std::string::npos) {
-        //     pos++;
-        //     line = hand[pos];
+        if (line.find("FLOP") != std::string::npos) {
+            pos++;
+            line = hand[pos];
 
-        //     while (line.find("*") == std::string::npos) {
-        //         line = hand[pos];
+            while (line.find("*") == std::string::npos) {
+                line = hand[pos];
 
-        //         if (line.find("bets") != std::string::npos) {
+                if (line.find("bets") != std::string::npos) {
+                    std::string playerName = line.substr(0, line.find(":"));
+                    for (int i = 0; i < players.size(); i++) {
+                        if (players[i].name == playerName) {
+                            players[i].n_bets++;
+                            if (players[i].raised) {
+                                players[i].n_cbets++;
+                                players[i].n_cbets_opportunity++;
+                            }
+                        }
+                    }
+                } else if (line.find("raises") != std::string::npos) {
+                    std::string playerName = line.substr(0, line.find(":"));
+                    for (int i = 0; i < players.size(); i++) {
+                        if (players[i].name == playerName) {
+                            players[i].n_raises++;
+                            if (players[i].raised) {
+                                players[i].n_cbets++;
+                                players[i].n_cbets_opportunity++;
+                            }
+                        }
+                    }
+                } else if (line.find("calls") != std::string::npos) {
+                    std::string playerName = line.substr(0, line.find(":"));
+                    for (int i = 0; i < players.size(); i++) {
+                        if (players[i].name == playerName) {
+                            players[i].n_calls++;
+                            if (players[i].raised) {
+                                players[i].n_cbets_opportunity++;
+                            }
+                        }
+                    }
+                } else if (line.find("checks") != std::string::npos) {
+                    std::string playerName = line.substr(0, line.find(":"));
+                    for (int i = 0; i < players.size(); i++) {
+                        if (players[i].name == playerName) {
+                            if (players[i].raised) {
+                                players[i].n_cbets_opportunity++;
+                            }
+                        }
+                    }
+                }
 
-        //         }
-        //     }
-        // }
+                pos++;
+            }
+        }
+
+        // showdown actions
+        if (line.find("SHOW DOWN") != std::string::npos) {
+            pos++;
+            line = hand[pos];
+
+            while (line.find("*") == std::string::npos) {
+                line = hand[pos];
+
+                if (line.find("collected") == std::string::npos) {
+                    std::string playerName = line.substr(0, line.find(":"));
+                    for (int i = 0; i < players.size(); i++) {
+                        if (players[i].name == playerName) {
+                            players[i].n_showdowns++;
+                        }
+                    }
+                } else if (line.find("collected") != std::string::npos) {
+                    std::string playerName = line.substr(0, line.find(" "));
+                    for (int i = 0; i < players.size(); i++) {
+                        if (players[i].name == playerName) {
+                            players[i].n_wins++;
+                        }
+                    }
+                }
+
+                pos++;
+            }
+        }
     }
-
-    // parse the flop actions
-
-    // parse the turn actions
-
-    // parse the river actions
-
-    // parse the showdown actions
-
-    // parse the pot size
 
     return players;
 }
@@ -187,13 +263,17 @@ int main() {
     }
     
     // Print the results
-    std::cout << "Player:Hands VPIP PFR 3Bet 3BetOpportunity" << std::endl;
+    std::cout << "Player:Hands VPIP PFR 3Bet 3BetO AF CBet wins/showdowns" << std::endl;
     for (int i = 0; i < players.size(); i++) {
         float vpip = (float)players[i].n_vpip / (float)players[i].n_hands;
         float pfr = (float)players[i].n_pfr / (float)players[i].n_hands;
         float threeBet = (float)players[i].n_3bet / (float)players[i].n_3bet_opportunity;
         threeBet = (players[i].n_3bet_opportunity == 0)? 0 : threeBet;
-        std::cout << players[i].name << ":" << players[i].n_hands << " " << vpip << " " << pfr << " " << threeBet << std::endl;
+        float AF = (float)(players[i].n_bets + players[i].n_raises) / (float)players[i].n_calls;
+        AF = (players[i].n_calls == 0)?  (players[i].n_bets + players[i].n_raises): AF;
+        float CBet = (float)players[i].n_cbets / (float)players[i].n_cbets_opportunity;
+        CBet = (players[i].n_cbets_opportunity == 0)? 0 : CBet;
+        std::cout << players[i].name << ":" << players[i].n_hands << " " << vpip << " " << pfr << " " << threeBet << " " << AF << " " << CBet << " " << players[i].n_wins << "/" << players[i].n_showdowns << std::endl;
     }
 
 

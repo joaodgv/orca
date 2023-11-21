@@ -14,6 +14,7 @@ struct Player {
     int n_pfr;
     int n_3bet;
     int n_3bet_opportunity;
+    bool raised;
     //Post-flop stats
     int n_bets;
     int n_raises;
