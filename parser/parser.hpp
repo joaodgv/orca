@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <map>
+#include <sstream>
 #include "types.hpp" // This is the header file that contains the Player struct
 
 using namespace std;
@@ -11,76 +13,93 @@ using namespace std;
 // 2. update stats in database
 // 3. show stats in real time
 
-// Updates the player vector with the players in the hand
-std::vector<Player> updatePlayers(std::vector<Player> players, std::vector<std::string> hand) {
-    // Checks if this is the first hand in the file
+// Gets all the active players in the hand
+std::vector<std::string> updateActivePlayers(std::vector<std::string> hand) {
 
-    if (players.size() == 0) {
-        for (int i = 2; i < hand.size(); i++) {
-            std::string line = hand[i];
-            if (line.find("Seat") != std::string::npos && line.find("button") == std::string::npos) {
-                Player player(line.substr(line.find(":") + 2, line.find(" (") - line.find(":") - 3));
-                player.increase_n_hands();
-                players.push_back(player);
-            }
-        }
-    } else {
-        // Updates the number of hands played by each player
-        // if the player is already in the vector
-        
-        std::vector<std::string> active_players;
-        for (int i = 2; i < hand.size(); i++) {
-            std::string line = hand[i];
+    std::vector<std::string> active_players;
+    for (int i = 2; i < hand.size(); i++) {
+        std::string line = hand[i];
 
-            if (hand[i].find("Seat") != std::string::npos && hand[i].find("button") == std::string::npos) {
-                std::string player_name = hand[i].substr(hand[i].find(":") + 2, hand[i].find(" (") - hand[i].find(":") - 2);
-                active_players.push_back(player_name);
-            }
-        }
-
-        for (int i = 0; i < players.size(); i++){
-            if (std::find(active_players.begin(), active_players.end(), players[i].get_name()) != active_players.end()) {
-                players[i].increase_n_hands();
-            } else {
-                players.erase(players.begin() + i);
-            }
-        }
-
-        for (int i = 0; i < active_players.size(); i++) {
-            bool found = false;
-            for (int j = 0; j < players.size(); j++) {
-                if (players[j].get_name() == active_players[i]) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                Player new_player(active_players[i]);
-                new_player.increase_n_hands();
-                players.push_back(new_player);
-            }
+        if (hand[i].find("Seat") != std::string::npos && hand[i].find("button") == std::string::npos) {
+            std::string player_name = hand[i].substr(hand[i].find(":") + 2, hand[i].find(" (") - hand[i].find(":") - 2);
+            active_players.push_back(player_name);
         }
     }
 
-    // Checks for new players joining the table
-    // Also deletes players that leave the table
-    for (int i = 0; i < hand.size(); i++){
-        if (hand[i].find("joins") != std::string::npos) {
-            Player new_player(hand[i].substr(0, hand[i].find(" ")));
+    return active_players;
+}
+
+std::map<std::string, std::string> getAllPlayers() {
+    std::map<std::string, std::string> player_map;
+
+    std::ifstream inputFile("db/players.txt");
+    if (inputFile.is_open()) {
+        std::string line;
+        while (getline(inputFile, line)) {
+            std::string player_name = line.substr(0, line.find(","));
+            std::string player_stats = line.substr(line.find(",") + 1, line.size() - line.find(",") - 1);
+            player_map[player_name] = player_stats;
+        }
+    } else {
+        std::cout << "Unable to open file" << std::endl;
+    }
+
+    return player_map;
+}
+
+// Updates the stats for each player
+std::vector<Player> updatePlayers(std::vector<std::string> hand) {
+    std::vector<std::string> active_players = updateActivePlayers(hand);
+    std::vector<Player> players;
+    std::map<std::string, std::string> player_stats;
+
+    player_stats = getAllPlayers();
+    for (int i = 0; i < active_players.size(); i++) {
+        // If the player is not in the map, add it
+        if (player_stats.find(active_players[i]) == player_stats.end()) {
+            Player new_player(active_players[i]);
             players.push_back(new_player);
-            hand.erase(hand.begin() + i);
-        } else if (hand[i].find("leaves") != std::string::npos) {
-            std::string player_name = hand[i].substr(0, hand[i].find(" "));
-            for (int j = 0; j < players.size(); j++) {
-                if (players[j].get_name() == player_name) {
-                    players.erase(players.begin() + j);
-                    break;
-                }
+        } else {
+            //if player is in map read the csv line
+            std::string line = player_stats[active_players[i]];
+            std::stringstream ss(line);
+            std::string value;
+            std::vector<std::string> data;
+            
+            while(std::getline(ss, value, ',')){
+                data.push_back(value);
             }
+
+            Player new_player(active_players[i]);
+            new_player.update_from_db(data);
+            new_player.increase_n_hands();
+            players.push_back(new_player);
         }
     }
 
     return players;
+}
+
+// update the players map and save it to file
+void savePlayers(std::vector<Player> players) {
+    std::map<std::string, std::string> player_stats;
+
+    player_stats = getAllPlayers();
+
+    for (int i = 0; i < players.size(); i++) {
+        std::string stats = players[i].get_stats_string();
+        std::string player_name = players[i].get_name();
+        player_stats[player_name] = stats;
+    }
+
+    std::ofstream outputFile("db/players.txt");
+    if (outputFile.is_open()) {
+        for (auto it = player_stats.begin(); it != player_stats.end(); it++) {
+            outputFile << it->first << "," << it->second << std::endl;
+        }
+    } else {
+        std::cout << "Unable to open file" << std::endl;
+    }
 }
 
 // Parses a single hand from the input file for PokerStars
@@ -99,7 +118,7 @@ std::vector<Player> parseHandStars(std::vector<Player> players , std::vector<std
     // TODO
 
     // parse the players
-    players = updatePlayers(players, hand);
+    players = updatePlayers(hand);
     for (int i = 0; i < players.size(); i++) {
         players[i].reset_hand();
         printf("Player: %s\n", players[i].get_name().c_str());
@@ -255,7 +274,7 @@ std::vector<Player> parseHand888(std::vector<Player> players, std::vector<string
     // TODO
 
     // parse the players
-    players = updatePlayers(players, hand);
+    players = updatePlayers(hand);
 
     for (int pos = 0; pos < hand.size(); pos++)
     {
@@ -389,6 +408,8 @@ std::vector<Player> parseHand888(std::vector<Player> players, std::vector<string
             }
         }
     }
+
+    savePlayers(players);
 
     return players;
 }

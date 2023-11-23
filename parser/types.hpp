@@ -1,4 +1,6 @@
 #include <string>
+#include <vector>
+#include <sstream>
 
 using namespace std;
 
@@ -9,6 +11,7 @@ using namespace std;
 *   Data structures for the hand history parser
 */
 // Represents the stats
+
 struct Stats {
     int n_hands;
     // pre-flop stats
@@ -58,21 +61,10 @@ class Player {
         void increase_n_cbetsO() { this->n_cbets_opportunity++; };
         void increase_n_wins() { this->n_wins++; };
         void increase_n_showdowns() { this->n_showdowns++; };
-        int get_n_hands() { return this->n_hands; };
-        int get_n_vpip() { return this->n_vpip; };
-        int get_n_pfr() { return this->n_pfr; };
-        int get_n_3bet() { return this->n_3bet; };
-        int get_n_3betO() { return this->n_3bet_opportunity; };
-        int get_n_bets() { return this->n_bets; };
-        int get_n_raises() { return this->n_raises; };
-        int get_n_calls() { return this->n_calls; };
-        int get_n_cbets() { return this->n_cbets; };
-        int get_n_cbetsO() { return this->n_cbets_opportunity; };
-        int get_n_wins() { return this->n_wins; };
-        int get_n_showdowns() { return this->n_showdowns; };
         void reset_hand() { this->raised = false; };
         void save_to_db();
-        void update_from_db();
+        void update_from_db(std::vector<std::string> data);
+        string get_stats_string();
         Stats get_stats() {
             Stats stats;
             stats.n_hands = this->n_hands;
@@ -108,10 +100,29 @@ Player::Player(string name) {
     this->n_showdowns = 0;
 }
 
-void Player::save_to_db() {
-    // TODO
+void Player::update_from_db(std::vector<std::string> data) {
+    this->n_hands = std::stoi(data[0]);
+    this->n_vpip = std::stoi(data[1]);
+    this->n_pfr = std::stoi(data[2]);
+    this->n_3bet = std::stoi(data[3]);
+    this->n_3bet_opportunity = std::stoi(data[4]);
+    this->raised = false;
+    this->n_bets = std::stoi(data[5]);
+    this->n_raises = std::stoi(data[6]);
+    this->n_calls = std::stoi(data[7]);
+    this->n_cbets = std::stoi(data[8]);
+    this->n_cbets_opportunity = std::stoi(data[9]);
+    this->n_wins = std::stoi(data[10]);
+    this->n_showdowns = std::stoi(data[11]);
 }
 
-void Player::update_from_db() {
-    // TODO
+// turns stats in a csv format
+string Player::get_stats_string() {
+    stringstream stats;
+    string stats_string;
+    stats << this->n_hands << "," << this->n_vpip << "," << this->n_pfr << "," << this->n_3bet << "," << this->n_3bet_opportunity << "," << this->n_bets << "," << this->n_raises << "," << this->n_calls << "," << this->n_cbets << "," << this->n_cbets_opportunity << "," << this->n_wins << "," << this->n_showdowns;
+    
+    stats >> stats_string;
+
+    return stats_string;
 }

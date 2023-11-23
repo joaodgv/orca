@@ -7,7 +7,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include "db/db.hpp"
 #include "parser/parser.hpp"
 
 // TODO
@@ -143,9 +142,18 @@ int main() {
     std::vector<Table> current_tables;
     std::vector<std::string> settings = getsettings();
     
-    // create database if not exists
+    // create database file if not exists
+    // csv file with player stats
     if (settings[1] == "true") {
-        createHHdb();
+        std::ofstream outputFile("db/players.csv");
+        if (outputFile.is_open()) {
+            outputFile << "username,n_hands,n_vpip,n_pfr,n_3bet,n_3betO,n_bets,n_raises,n_calls,n_cbet,n_cbetO,n_wtsd,n_wsd" << std::endl;
+            outputFile.close();
+        } else {
+            std::cout << "Unable to open file" << std::endl;
+        }
+
+        outputFile.close();
     }
     
     int year = localtime(&t)->tm_year + 1900;
@@ -153,6 +161,14 @@ int main() {
     int day = localtime(&t)->tm_mday;
 
     std::string string_date = std::to_string(year) + "" + std::to_string(month) + "" + std::to_string(day);
+    // create hand history file for the day if not exists
+    std::ofstream outputFile("db/" + string_date + ".txt");
+    if (outputFile.is_open()) {
+        outputFile.close();
+    } else {
+        std::cout << "Unable to open file" << std::endl;
+    }
+    outputFile.close();
 
     auto dirp = opendir(settings[0].c_str());
     if (dirp == NULL) {
