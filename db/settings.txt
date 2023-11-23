@@ -1,0 +1,3 @@
+dir=/Users/j/Library/Application Support/PokerstarsPT/HandHistory/
+hero=AceOw1
+first=false

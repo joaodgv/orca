@@ -1,4 +1,5 @@
 learn/*
 .vscode/*
-
+db/HH.db
+parser/*.txt
 ```
