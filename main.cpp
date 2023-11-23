@@ -10,6 +10,9 @@
 #include "db/db.hpp"
 #include "parser/parser.hpp"
 
+// TODO
+// be able to check more than one folder
+
 // Data types for table management
 struct Table{
     std::string name;

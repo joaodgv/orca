@@ -7,8 +7,11 @@ Orca is a new open source completely free Poker HUD. I started this project beca
 - [X] Create a database to hold the statistics
 - [X] update statistics as the game is being played
 - [X] Create Player class
+- [X] Implement poker888 parser
 - [ ] Save player stats in DB
 - [ ] restore player stats from DB
 - [ ] Create simple GUI to view statistics
 - [ ] Update code to work with more than 1 table
 
+## State of the program
+Right now orca is only available as a console application and is able to track PokerStars or 888poker statistics. It also only tracks 10 playing statistics but in the future it will also track BB/100 and ROI.
