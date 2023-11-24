@@ -1,5 +1,7 @@
 learn/*
 .vscode/*
 db/HH.db
+db/players.txt
+db/2023*
 parser/*.txt
 ```

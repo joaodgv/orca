@@ -90,8 +90,6 @@ void main_loop(std::string path, std::string string_date) {
     }
     int len = settings[0].length();
     while (true){
-        printf("Checking for new files...\n");
-
         while (auto dp = readdir(dirp)) {
             std::string filename = dp->d_name;
 
@@ -104,8 +102,10 @@ void main_loop(std::string path, std::string string_date) {
                         found = true;
                         struct stat info;
                         stat((settings[0] + filename).c_str(), &info);
-                        if (current_tables[i].last_modified < info.st_mtime) {
-                            parse_file(settings[0] + filename);
+                        // check if file has been modified
+                        if (info.st_mtime != current_tables[i].last_modified) {
+                            std::cout << "Table: " << current_tables[i].name << " modified" << std::endl;
+                            parse_file(settings[0] + filename, string_date);
                             current_tables[i].last_modified = info.st_mtime;
                             current_tables[i].iterations = 0;
                         }
@@ -119,7 +119,7 @@ void main_loop(std::string path, std::string string_date) {
                     new_table.last_modified = info.st_mtime;
                     new_table.iterations = 0;
                     current_tables.push_back(new_table);
-                    parse_file(settings[0] + filename);
+                    parse_file(settings[0] + filename, string_date);
                 }
             }
         }
@@ -145,14 +145,8 @@ int main() {
     // create database file if not exists
     // csv file with player stats
     if (settings[1] == "true") {
-        std::ofstream outputFile("db/players.csv");
-        if (outputFile.is_open()) {
-            outputFile << "username,n_hands,n_vpip,n_pfr,n_3bet,n_3betO,n_bets,n_raises,n_calls,n_cbet,n_cbetO,n_wtsd,n_wsd" << std::endl;
-            outputFile.close();
-        } else {
-            std::cout << "Unable to open file" << std::endl;
-        }
-
+        std::ofstream outputFile("db/players.txt");
+        
         outputFile.close();
     }
     
@@ -179,7 +173,7 @@ int main() {
     while (auto dp = readdir(dirp)) {
         std::string filename = dp->d_name;
         if (settings[1] == "true"){
-            parse_file(settings[0] + filename);
+            parse_file(settings[0] + filename, string_date);
         }
     }
     closedir(dirp);

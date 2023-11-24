@@ -10,7 +10,6 @@ using namespace std;
 
 // TODO
 // 1. check if hand was already parsed
-// 2. update stats in database
 // 3. show stats in real time
 
 // Gets all the active players in the hand
@@ -100,6 +99,30 @@ void savePlayers(std::vector<Player> players) {
     } else {
         std::cout << "Unable to open file" << std::endl;
     }
+}
+
+// method to check if hand was already parsed
+bool handExists(std::string handNumber, std::string date) {
+    // open file of the date and check if hand number exists
+    std::ifstream inputFile("db/" + date + ".txt");
+    if (inputFile.is_open()) {
+        std::string line;
+        while (getline(inputFile, line)) {
+            if (line.find(handNumber) != std::string::npos) {
+                return true;
+            }
+        }
+        inputFile.close();
+    } else {
+        std::ofstream outputFile("db/" + date + ".txt");
+        outputFile << handNumber << std::endl;
+        outputFile.close();
+    }
+
+    std::ofstream outputFile("db/" + date + ".txt", std::ios_base::app);
+    outputFile << handNumber << std::endl;
+    outputFile.close();
+    return false;
 }
 
 // Parses a single hand from the input file for PokerStars
@@ -259,19 +282,19 @@ std::vector<Player> parseHandStars(std::vector<Player> players , std::vector<std
 }
 
 // Parses a single hand from the input file for Poker888
-std::vector<Player> parseHand888(std::vector<Player> players, std::vector<string> hand) {
+std::vector<Player> parseHand888(std::vector<Player> players, std::vector<string> hand, std::string date) {
     if (hand.size() == 0) {
         return players;
     }
     
     // parse the table name and format
-    std::string handNumber = hand[0];
-    std::string tableName = hand[1];
+    std::string handNumberLine = hand[0];
+    std::string handNumber = handNumberLine.substr(handNumberLine.find(": ") + 2, handNumberLine.back());
     bool wasRaised = false;
 
-    // get the hand number from the string
-    // get the table name from the string
-    // TODO
+    if (handExists(handNumber, date)) {
+        return players;
+    }
 
     // parse the players
     players = updatePlayers(hand);
@@ -414,7 +437,7 @@ std::vector<Player> parseHand888(std::vector<Player> players, std::vector<string
     return players;
 }
 
-int parse_file(std::string path) {
+int parse_file(std::string path, std::string date) {
     std::ifstream inputFile(path);
     char line[256];
     std::vector<std::string> hand;
@@ -434,15 +457,17 @@ int parse_file(std::string path) {
             if (hand[1].find("PokerStars") != std::string::npos) {
                 players = parseHandStars(players, hand);
             } else if (hand[1].find("888") != std::string::npos) {
-                players = parseHand888(players, hand);
+                players = parseHand888(players, hand, date);
             }
             hand.clear();
 
+            // clean screen
+            std::cout << "\033[2J\033[1;1H";
             // Print the results
             std::cout << "Player:Hands VPIP PFR 3Bet AF CBet wins/showdowns" << std::endl;
             for (int i = 0; i < players.size(); i++) {
                 Stats stats = players[i].get_stats();
-                std::cout << players[i].get_name() << ":" << stats.n_hands << " " << stats.vpip << " " << stats.pfr << " " << stats.three_bet << " " << stats.af << " " << stats.cbet << " " << stats.wsd << "/" << stats.wtsd << std::endl;
+                printf("%s: %d %.2f %.2f %.2f %.2f %.2f %.2f/%.2f\n", players[i].get_name().c_str(), stats.n_hands, stats.vpip, stats.pfr, stats.three_bet, stats.af, stats.cbet, stats.wsd, stats.wtsd);
             }
             std::cout << "*********************" << std::endl;
 
