@@ -88,42 +88,52 @@ void main_loop(std::string path, std::string string_date) {
         std::cout << "Error opening directory" << std::endl;
         return;
     }
+    // close directory
+    closedir(dirp);
+
     int len = settings[0].length();
     while (true){
+        auto dirp = opendir(settings[0].c_str());
         while (auto dp = readdir(dirp)) {
             std::string filename = dp->d_name;
+            std::cout << filename << std::endl;
 
+
+            // check if file has today's date
             if (filename.find(string_date) != std::string::npos) {
-                printf("Found new file: %s\n", filename.c_str());
-                std::string table_name = filename.substr(filename.find(" "), filename.find(" -"));
+                // check if file is already being parsed
+
                 bool found = false;
                 for (int i=0; i<current_tables.size(); i++) {
-                    if (current_tables[i].name == table_name) {
+                    if (current_tables[i].name == filename) {
                         found = true;
+                        current_tables[i].iterations = 0;
+                        // check if file was modified
                         struct stat info;
                         stat((settings[0] + filename).c_str(), &info);
-                        // check if file has been modified
-                        if (info.st_mtime != current_tables[i].last_modified) {
-                            std::cout << "Table: " << current_tables[i].name << " modified" << std::endl;
-                            parse_file(settings[0] + filename, string_date);
+                        if (current_tables[i].last_modified != info.st_mtime) {
                             current_tables[i].last_modified = info.st_mtime;
-                            current_tables[i].iterations = 0;
+                            parse_file(settings[0] + filename, string_date);
                         }
+                        break;
                     }
                 }
+
                 if (!found) {
-                    struct stat info;
-                    Table new_table;
-                    stat((settings[0] + filename).c_str(), &info);
-                    new_table.name = table_name;
-                    new_table.last_modified = info.st_mtime;
-                    new_table.iterations = 0;
-                    current_tables.push_back(new_table);
+                    printf("Parsing file %s\n", filename.c_str());
                     parse_file(settings[0] + filename, string_date);
+                    Table table;
+                    table.name = filename;
+                    table.last_modified = time(0);
+                    table.iterations = 0;
+                    current_tables.push_back(table);
                 }
             }
         }
 
+        closedir(dirp);
+
+        // remove tables that haven't been modified in 20 iterations
         for (int i=0; i<current_tables.size(); i++) {
             if (current_tables[i].iterations > 20) {
                 current_tables.erase(current_tables.begin() + i);
@@ -131,6 +141,8 @@ void main_loop(std::string path, std::string string_date) {
                 current_tables[i].iterations++;
             }
         }
+
+        printf("Current tables: %lu\n", current_tables.size());
 
         sleep(30);
     }
