@@ -3,5 +3,6 @@ learn/*
 db/HH.db
 db/players.txt
 db/2023*
+db/players.txt
 parser/*.txt
 ```
