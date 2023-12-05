@@ -1,0 +1,3 @@
+/Users/j/Documents/GitHub/orca/CMakeFiles/OrcaHUD.dir
+/Users/j/Documents/GitHub/orca/CMakeFiles/edit_cache.dir
+/Users/j/Documents/GitHub/orca/CMakeFiles/rebuild_cache.dir
